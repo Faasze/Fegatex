@@ -19,7 +19,7 @@ const PrivacyPolicyModal = ({ open, onClose }: Props) => (
             <h3 className="font-bold text-foreground mb-2">1. Kto spracúva údaje</h3>
             <p><strong className="text-foreground">Prevádzkovateľ:</strong> FeGa-Tex s.r.o.</p>
             <p>Priemyselná 123, 091 01 Stropkov, Slovenská republika</p>
-            <p>IČO: (doplniť)</p>
+            <p>IČO: 50748301</p>
             <p>Kontakt: <a href="mailto:p.feco@fegatex.sk" className="underline hover:text-foreground">p.feco@fegatex.sk</a></p>
             <p className="mt-1">Zodpovedná osoba (DPO): nie je menovaná (spoločnosť nespĺňa kritériá povinného menovania DPO podľa čl. 37 GDPR).</p>
           </section>
