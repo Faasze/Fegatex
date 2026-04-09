@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +14,7 @@ import { contactSchema, ContactFormData } from "@/lib/schemas/contactSchema";
 const ContactSection = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -58,6 +60,8 @@ const ContactSection = () => {
   };
 
   return (
+    <>
+    <PrivacyPolicyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
     <section id="kontakt" className="py-20 md:py-28 bg-card">
       <div className="container">
         <div className="text-center mb-14">
@@ -151,7 +155,7 @@ const ContactSection = () => {
                     <div className="space-y-1 leading-none">
                       <label className="text-sm text-muted-foreground cursor-pointer">
                         Súhlasím so spracovaním osobných údajov v súlade s{" "}
-                        <a href="#" className="underline hover:text-foreground">zásadami ochrany súkromia</a>.
+                        <button type="button" onClick={() => setPrivacyOpen(true)} className="underline hover:text-foreground">zásadami ochrany súkromia</button>.
                       </label>
                       <FormMessage />
                     </div>
@@ -201,6 +205,7 @@ const ContactSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

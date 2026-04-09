@@ -1,11 +1,13 @@
 import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Pridaj sem obrázky z public/oblecenie/ – stačí názov súboru
-const items = [
-  // { src: "/oblecenie/mikina.jpg", name: "Pracovná mikina" },
-  // { src: "/oblecenie/nohavice.jpg", name: "Ochranné nohavice" },
-];
+const imageModules = import.meta.glob("../assets/oblecenie/*", { eager: true, as: "url" });
+
+const items = Object.entries(imageModules).map(([path, src]) => {
+  const filename = path.split("/").pop() ?? path;
+  const name = filename.replace(/\.[^.]+$/, "").replace(/Screenshot \d{4}-\d{2}-\d{2} \d+/i, "Pracovný odev");
+  return { src: src as string, name };
+});
 
 const ClothingSalesSection = () => (
   <section id="predaj-odevov" className="py-20 md:py-28">
