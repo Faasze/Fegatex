@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
 
 const COOKIE_KEY = "fegatex_cookie_consent";
 
 const CookieConsentBanner = () => {
   const [visible, setVisible] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
 
   useEffect(() => {
     const consent = localStorage.getItem(COOKIE_KEY);
@@ -25,15 +27,16 @@ const CookieConsentBanner = () => {
   if (!visible) return null;
 
   return (
+    <>
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 bg-primary text-primary-foreground shadow-2xl border-t border-primary-foreground/20">
       <div className="container flex flex-col sm:flex-row items-start sm:items-center gap-4 max-w-5xl">
         <div className="flex-1 text-sm text-primary-foreground/90">
           <p className="font-semibold mb-1">Používame cookies</p>
           <p>
             Táto stránka používa cookies na zlepšenie vášho zážitku a analýzu návštevnosti.{" "}
-            <a href="#" className="underline hover:text-primary-foreground">
+            <button type="button" onClick={() => setPrivacyOpen(true)} className="underline hover:text-primary-foreground">
               Viac informácií
-            </a>
+            </button>
           </p>
         </div>
         <div className="flex items-center gap-3 flex-shrink-0">
@@ -62,6 +65,8 @@ const CookieConsentBanner = () => {
         </div>
       </div>
     </div>
+    <PrivacyPolicyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
+    </>
   );
 };
 
