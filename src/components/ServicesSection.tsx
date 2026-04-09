@@ -1,4 +1,4 @@
-import { Shirt, WashingMachine, Warehouse, MessageSquare } from "lucide-react";
+import { Shirt, WashingMachine, Warehouse, MessageSquare, ShoppingBag } from "lucide-react";
 
 const services = [
   {
@@ -20,6 +20,11 @@ const services = [
     icon: MessageSquare,
     title: "Poradenstvo",
     desc: "Pomôžeme vám vybrať správne odevy a nastaviť optimálny servisný cyklus pre vašu firmu.",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Predaj odevov",
+    desc: "Ponúkame priamy predaj pracovných odevov — kvalitné uniformy a ochranné oblečenie dostupné na okamžitý nákup.",
   },
 ];
 
