@@ -1,0 +1,7 @@
+services:
+  fegatex:
+    build: .
+    container_name: fegatex
+    ports:
+      - "8086:80"
+    restart: unless-stopped
