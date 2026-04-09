@@ -36,9 +36,6 @@ const ClothingSalesSection = () => (
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <div className="p-4">
-                <p className="font-semibold text-foreground text-sm">{item.name}</p>
-              </div>
             </div>
           ))}
         </div>
