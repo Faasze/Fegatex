@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
@@ -7,6 +8,7 @@ const navLinks = [
   { label: "Služby", href: "#sluzby" },
   { label: "Ako to funguje", href: "#proces" },
   { label: "Pre koho", href: "#odvetvia" },
+  { label: "Cenník", href: "/cennik", isRoute: true },
   { label: "Kontakt", href: "#kontakt" },
 ];
 
@@ -21,15 +23,25 @@ const Navbar = () => {
         </a>
 
         <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.href}
+                to={link.href}
+                className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <Button variant="hero" size="sm" asChild>
             <a href="#kontakt">Cenová ponuka</a>
           </Button>
@@ -46,16 +58,27 @@ const Navbar = () => {
 
       {open && (
         <div className="md:hidden bg-primary border-t border-primary-foreground/10 pb-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block px-6 py-3 text-sm text-primary-foreground/70 hover:text-primary-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.href}
+                to={link.href}
+                onClick={() => setOpen(false)}
+                className="block px-6 py-3 text-sm text-primary-foreground/70 hover:text-primary-foreground"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="block px-6 py-3 text-sm text-primary-foreground/70 hover:text-primary-foreground"
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <div className="px-6 pt-2">
             <Button variant="hero" size="sm" className="w-full" asChild>
               <a href="#kontakt" onClick={() => setOpen(false)}>Cenová ponuka</a>
