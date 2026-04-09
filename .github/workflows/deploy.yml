@@ -1,0 +1,21 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull latest code
+        run: |
+          cd /home/dankom/Projects/Fegatex
+          git pull
+
+      - name: Rebuild and restart Docker
+        run: |
+          cd /home/dankom/Projects/Fegatex
+          docker compose up --build -d
