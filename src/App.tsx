@@ -5,7 +5,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import ChranenaDielna from "./pages/ChranenaDielna.tsx";
 import CookieConsentBanner from "./components/CookieConsentBanner";
+import { initAnalytics } from "@/lib/analytics";
+
+initAnalytics();
 
 const queryClient = new QueryClient();
 
@@ -18,7 +22,7 @@ const App = () => (
         <CookieConsentBanner />
         <Routes>
           <Route path="/" element={<Index />} />
-{/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/chranena-dielna" element={<ChranenaDielna />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import CookieSettingsModal, { CookieConsent } from "@/components/CookieSettingsModal";
+import { updateAnalyticsConsent } from "@/lib/analytics";
 
 const COOKIE_KEY = "fegatex_cookie_consent";
 
@@ -16,18 +17,21 @@ const CookieConsentBanner = () => {
 
   const acceptAll = () => {
     localStorage.setItem(COOKIE_KEY, JSON.stringify({ analytics: true, functional: true, marketing: true }));
+    updateAnalyticsConsent(true);
     setVisible(false);
     setSettingsOpen(false);
   };
 
   const declineAll = () => {
     localStorage.setItem(COOKIE_KEY, JSON.stringify({ analytics: false, functional: false, marketing: false }));
+    updateAnalyticsConsent(false);
     setVisible(false);
     setSettingsOpen(false);
   };
 
   const saveCustom = (consent: CookieConsent) => {
     localStorage.setItem(COOKIE_KEY, JSON.stringify(consent));
+    updateAnalyticsConsent(consent.analytics);
     setVisible(false);
     setSettingsOpen(false);
   };

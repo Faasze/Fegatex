@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
@@ -52,9 +52,7 @@ const categories: Category[] = [
     label: "Funkčné",
     description: "Umožňujú stránke zapamätať si vaše preferencie (napr. jazyk, región).",
     required: false,
-    cookies: [
-      { name: "fegatex_lang", provider: "FeGa-Tex", purpose: "Zapamätanie jazykových preferencií", validity: "1 rok", type: "Vlastná" },
-    ],
+    cookies: [],
   },
   {
     id: "marketing",
@@ -72,12 +70,33 @@ interface Props {
   onDeclineAll: () => void;
 }
 
+const COOKIE_KEY = "fegatex_cookie_consent";
+
 const CookieSettingsModal = ({ open, onSave, onAcceptAll, onDeclineAll }: Props) => {
   const [consent, setConsent] = useState<CookieConsent>({
     analytics: false,
     functional: false,
     marketing: false,
   });
+
+  useEffect(() => {
+    if (!open) return;
+    try {
+      const stored = localStorage.getItem(COOKIE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        setConsent({
+          analytics: parsed.analytics ?? false,
+          functional: parsed.functional ?? false,
+          marketing: parsed.marketing ?? false,
+        });
+      } else {
+        setConsent({ analytics: false, functional: false, marketing: false });
+      }
+    } catch {
+      setConsent({ analytics: false, functional: false, marketing: false });
+    }
+  }, [open]);
 
   const toggle = (key: keyof CookieConsent) =>
     setConsent((prev) => ({ ...prev, [key]: !prev[key] }));
